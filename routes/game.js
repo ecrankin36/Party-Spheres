@@ -25,7 +25,7 @@ async function randomNpcs() {
 // Retrieves a user (their total points and high score attributes) from the users table based on a passed in user ID
 async function getUser(userId) {
   const [users] = await pool.execute(
-    "SELECT total_points, high_score FROM users WHERE user_id = ?", 
+    "SELECT username, total_points, high_score FROM users WHERE user_id = ?", 
     [userId]
   );
   return users[0];
@@ -67,7 +67,8 @@ router.get('/', async (req, res) => {
           circle1,
           circle2,
           circle3,
-          showLoginPopup: true //flag by ejs for popup and triggers
+          showLoginPopup: true,
+          user: null
       });
     // For logged in users
     } else {
@@ -85,8 +86,8 @@ router.get('/', async (req, res) => {
           circle1,
           circle2,
           circle3,
-          showLoginPopup: true //same thing as before
-
+          showLoginPopup: true,
+          user: { username: user.username }
       });
     }
   } catch(error) {
