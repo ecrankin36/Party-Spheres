@@ -1,4 +1,13 @@
 <%- include('./partials/header', { currentPage: 'home'}) %>
+
+<div class="login-status">
+    <% if (user) { %>
+        <span class="logged-in">Logged in as <%= user.username %></span>
+    <% } else { %>
+        <span class="not-logged-in">Guest (not logged in)</span>
+    <% } %>
+</div>
+
 <div class = "party-circle-header">Click one group and then make an action:</div>
 <div class="points-health">
     <div class="game-points" id="current-points">Points: <%= points %></div>
@@ -159,4 +168,11 @@
     <div class="game-button" id="invite-button">Invite to Event</div>
     <div class="game-button" id="help-button">Offer Help</div>
 </div>
+
+<% if (!user) { %>
+    <div class="guest-login-prompt">
+        <p>You’re currently playing as a guest. To save your score, please <a href="/login">log in</a> or <a href="/signup">sign up</a>.</p>
+    </div>
+<% } %>
+
 <%- include('./partials/footer') %>
